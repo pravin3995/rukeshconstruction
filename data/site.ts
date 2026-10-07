@@ -19,9 +19,8 @@ export const site = {
   url: "https://www.rukeshconstruction.com",
 
   contact: {
-    // REPLACE: real phone number. `phoneHref` must be the dial-able version.
-    phone: "+91 98765 43210",
-    phoneHref: "tel:+919876543210",
+    phone: "+91 88883 36576",
+    phoneHref: "tel:+918888336576",
     // REPLACE: real email address.
     email: "info@rukeshconstruction.com",
     // REPLACE: real office address.

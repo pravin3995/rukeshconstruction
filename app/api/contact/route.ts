@@ -2,11 +2,16 @@ import { NextResponse } from "next/server";
 import { emptyContact, validateContact, type ContactInput } from "@/lib/contact";
 
 /**
- * Receives contact-form inquiries.
+ * Receives contact-form inquiries and emails them via Resend (https://resend.com).
  *
- * TODO: connect a delivery method before launch — e.g. send an email with
- * Resend / Nodemailer, post to a CRM, or store in a database. Until then,
- * inquiries are validated and logged to the server console only.
+ * Required env vars (set in Vercel → Settings → Environment Variables):
+ *   RESEND_API_KEY     – API key from the Resend dashboard
+ *   CONTACT_TO_EMAIL   – inbox that receives inquiries (comma-separate for several)
+ * Optional:
+ *   CONTACT_FROM_EMAIL – sender on a domain verified in Resend,
+ *                        e.g. "Rukesh Construction <website@rukeshconstruction.com>".
+ *                        Defaults to Resend's test sender, which can only deliver
+ *                        to the email address of your Resend account.
  */
 export async function POST(request: Request) {
   let body: Partial<ContactInput> & { company?: string };
@@ -29,7 +34,43 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: "Please correct the highlighted fields.", errors }, { status: 422 });
   }
 
-  console.info("[contact] New inquiry:", input);
+  const apiKey = process.env.RESEND_API_KEY;
+  const to = process.env.CONTACT_TO_EMAIL;
+  if (!apiKey || !to) {
+    console.error("[contact] RESEND_API_KEY or CONTACT_TO_EMAIL is not set. Inquiry:", input);
+    return NextResponse.json(
+      { ok: false, error: "We couldn't send your message right now. Please call or email us directly." },
+      { status: 503 },
+    );
+  }
+
+  const res = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
+    body: JSON.stringify({
+      from: process.env.CONTACT_FROM_EMAIL || "Rukesh Construction Website <onboarding@resend.dev>",
+      to: to.split(",").map((s) => s.trim()),
+      reply_to: input.email,
+      subject: `New inquiry: ${input.projectType} — ${input.fullName}`,
+      text: [
+        `Name: ${input.fullName}`,
+        `Email: ${input.email}`,
+        `Phone: ${input.phone}`,
+        `Project type: ${input.projectType}`,
+        `Budget: ${input.budget}`,
+        "",
+        input.message,
+      ].join("\n"),
+    }),
+  });
+
+  if (!res.ok) {
+    console.error("[contact] Resend error", res.status, await res.text(), "Inquiry:", input);
+    return NextResponse.json(
+      { ok: false, error: "We couldn't send your message right now. Please call or email us directly." },
+      { status: 502 },
+    );
+  }
 
   return NextResponse.json({ ok: true });
 }
