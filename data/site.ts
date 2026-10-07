@@ -39,12 +39,9 @@ export const site = {
     ],
   },
 
-  // REPLACE: real social profile URLs. Remove any entry you don't use.
+  // Social profiles shown in the footer. Add facebook / linkedin / youtube here to show those icons too.
   social: {
-    instagram: "https://www.instagram.com/",
-    facebook: "https://www.facebook.com/",
-    linkedin: "https://www.linkedin.com/",
-    youtube: "https://www.youtube.com/",
+    instagram: "https://www.instagram.com/rukesh_construction_/",
   },
 
   // REPLACE: company statistics — use verified numbers only.
