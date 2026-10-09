@@ -94,11 +94,11 @@ export function ContactForm() {
     setStatus("submitting");
     setServerMessage("");
     try {
-      const honeypot = (e.currentTarget.elements.namedItem("company") as HTMLInputElement | null)?.value;
+      const honeypot = (e.currentTarget.elements.namedItem("hp_trap") as HTMLInputElement | null)?.value;
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...values, company: honeypot }),
+        body: JSON.stringify({ ...values, hp_trap: honeypot }),
       });
       const data = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string; errors?: ContactErrors };
       if (!res.ok || !data.ok) {
@@ -191,10 +191,11 @@ export function ContactForm() {
         </Field>
       </div>
 
-      {/* Honeypot field — hidden from people, catches simple bots. */}
+      {/* Honeypot field — hidden from people, catches simple bots. Its name and label must not look like a
+          real field (e.g. "company"), or browser autofill fills it and real inquiries get dropped. */}
       <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
-        <label htmlFor="company">Company</label>
-        <input id="company" name="company" type="text" tabIndex={-1} autoComplete="off" />
+        <label htmlFor="hp_trap">Leave this field empty</label>
+        <input id="hp_trap" name="hp_trap" type="text" tabIndex={-1} autoComplete="off" />
       </div>
 
       <AnimatePresence>

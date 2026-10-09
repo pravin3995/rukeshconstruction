@@ -14,7 +14,7 @@ import { emptyContact, validateContact, type ContactInput } from "@/lib/contact"
  *                        to the email address of your Resend account.
  */
 export async function POST(request: Request) {
-  let body: Partial<ContactInput> & { company?: string };
+  let body: Partial<ContactInput> & { hp_trap?: string };
   try {
     body = await request.json();
   } catch {
@@ -22,7 +22,7 @@ export async function POST(request: Request) {
   }
 
   // Honeypot: real users never fill this hidden field.
-  if (body.company) return NextResponse.json({ ok: true });
+  if (body.hp_trap) return NextResponse.json({ ok: true });
 
   const input: ContactInput = { ...emptyContact };
   for (const key of Object.keys(emptyContact) as (keyof ContactInput)[]) {
