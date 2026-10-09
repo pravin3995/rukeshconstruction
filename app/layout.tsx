@@ -34,7 +34,6 @@ export const metadata: Metadata = {
     "construction company",
     "residential construction",
     "commercial construction",
-    "industrial construction",
     "renovation",
     "civil works",
     "project management",

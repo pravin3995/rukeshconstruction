@@ -13,7 +13,7 @@ import { cn } from "@/lib/utils";
 export const metadata: Metadata = {
   title: "Services",
   description:
-    "Residential, commercial and industrial construction, renovation, project management and structural & civil works by Rukesh Construction.",
+    "Residential and commercial construction, renovation, project management and structural & civil works by Rukesh Construction.",
   alternates: { canonical: "/services" },
 };
 

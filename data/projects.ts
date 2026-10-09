@@ -13,7 +13,7 @@
  * ─────────────────────────────────────────────────────────────────────────────
  */
 
-export type ProjectCategory = "Residential" | "Commercial" | "Industrial";
+export type ProjectCategory = "Residential" | "Commercial";
 
 export type Project = {
   slug: string;
@@ -115,45 +115,6 @@ export const projects: Project[] = [
     featured: true,
   },
   {
-    slug: "industrial-facility",
-    name: "Industrial Facility",
-    category: "Industrial",
-    tagline: "Large-scale industrial construction",
-    location: "City, State", // REPLACE
-    year: "2024",
-    status: "Completed",
-    cover: "/images/projects/industrial-facility-1.jpg",
-    gallery: [
-      { src: "/images/projects/industrial-facility-1.jpg", alt: "Large warehouse interior with high-bay racking" },
-      { src: "/images/projects/industrial-facility-2.jpg", alt: "Warehouse aisle with pallet storage" },
-      { src: "/images/projects/industrial-facility-3.jpg", alt: "Steel fabrication with welding sparks" },
-      { src: "/images/projects/industrial-facility-4.jpg", alt: "Earthworks and site preparation with excavators" },
-    ],
-    overview: [
-      "A large-span warehousing and logistics facility built for high-bay storage and heavy vehicle movement.",
-      "The project involved extensive site development, a pre-engineered steel superstructure and heavy-duty industrial flooring designed for racking loads.",
-    ],
-    scope: [
-      "Site grading and earthworks",
-      "Isolated and combined footings",
-      "Pre-engineered steel building erection",
-      "FM2-grade industrial flooring",
-      "Loading docks and external roads",
-    ],
-    highlights: [
-      "Clear-span structure for flexible storage layouts",
-      "Heavy-duty flooring for high-bay racking",
-      "Coordinated truck circulation and loading bays",
-    ],
-    stats: [
-      { label: "Built-up Area", value: "1,20,000 sq.ft" },
-      { label: "Clear Height", value: "12 m" },
-      { label: "Duration", value: "11 Months" },
-      { label: "Type", value: "Warehousing" },
-    ],
-    featured: true,
-  },
-  {
     slug: "villa-project",
     name: "Villa Project",
     category: "Residential",
@@ -194,7 +155,7 @@ export const projects: Project[] = [
   },
 ];
 
-export const projectCategories: ProjectCategory[] = ["Residential", "Commercial", "Industrial"];
+export const projectCategories: ProjectCategory[] = ["Residential", "Commercial"];
 
 export function getProject(slug: string) {
   return projects.find((p) => p.slug === slug);

@@ -1,7 +1,6 @@
 import {
   Building2,
   ClipboardList,
-  Factory,
   Hammer,
   House,
   Layers,
@@ -48,20 +47,8 @@ export const services: Service[] = [
     image: "/images/services/commercial.jpg",
   },
   {
-    slug: "industrial-construction",
-    number: "03",
-    title: "Industrial Construction",
-    shortTitle: "Industrial",
-    summary: "Warehouses, sheds and production facilities engineered for heavy use.",
-    description:
-      "Industrial projects demand robust structures and careful coordination. We deliver facilities with the load capacity, clear spans and services your operations require.",
-    scope: ["Warehouses & logistics", "Factory buildings", "Pre-engineered structures", "Industrial flooring"],
-    icon: Factory,
-    image: "/images/services/industrial.jpg",
-  },
-  {
     slug: "renovation-remodeling",
-    number: "04",
+    number: "03",
     title: "Renovation & Remodeling",
     shortTitle: "Renovation",
     summary: "Upgrades and transformations that add value to existing spaces.",
@@ -73,7 +60,7 @@ export const services: Service[] = [
   },
   {
     slug: "project-management",
-    number: "05",
+    number: "04",
     title: "Project Management",
     shortTitle: "Project Management",
     summary: "Planning, coordination and oversight from first estimate to final handover.",
@@ -85,7 +72,7 @@ export const services: Service[] = [
   },
   {
     slug: "structural-civil-works",
-    number: "06",
+    number: "05",
     title: "Structural & Civil Works",
     shortTitle: "Civil Works",
     summary: "RCC frameworks, foundations and civil works executed with precision.",

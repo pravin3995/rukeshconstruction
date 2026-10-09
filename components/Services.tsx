@@ -7,9 +7,14 @@ import { ArrowUpRight } from "lucide-react";
 import { services, type Service } from "@/data/services";
 import { SectionHeading } from "./ui/SectionHeading";
 import { ButtonLink } from "./ui/Button";
-import { EASE } from "@/lib/utils";
+import { EASE, cn } from "@/lib/utils";
 
-function ServiceCard({ service, index }: { service: Service; index: number }) {
+/** Widens the last card so an incomplete final row has no empty cells (2 cols at sm, 3 at lg). */
+function lastRowFill(count: number) {
+  return cn(count % 2 === 1 && "sm:col-span-2", count % 3 === 2 && "lg:col-span-2", count % 3 === 1 && "lg:col-span-3");
+}
+
+function ServiceCard({ service, index, className }: { service: Service; index: number; className?: string }) {
   const Icon = service.icon;
   return (
     <motion.li
@@ -17,7 +22,7 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "0px 0px -10% 0px" }}
       transition={{ duration: 0.8, ease: EASE, delay: (index % 3) * 0.08 }}
-      className="bg-ink"
+      className={cn("bg-ink", className)}
     >
       <motion.div whileHover={{ y: -6 }} transition={{ duration: 0.4, ease: EASE }} className="h-full">
         <Link
@@ -89,7 +94,12 @@ export function Services({ showAllLink = true }: { showAllLink?: boolean }) {
         {/* gap-px over a light background draws hairline dividers between cards */}
         <ul className="mt-14 grid gap-px border border-white/10 bg-white/10 sm:grid-cols-2 lg:mt-20 lg:grid-cols-3">
           {services.map((service, i) => (
-            <ServiceCard key={service.slug} service={service} index={i} />
+            <ServiceCard
+              key={service.slug}
+              service={service}
+              index={i}
+              className={i === services.length - 1 ? lastRowFill(services.length) : undefined}
+            />
           ))}
         </ul>
       </div>

@@ -70,33 +70,3 @@ export const processSteps: Item[] = [
   { number: "06", title: "Handover", description: "Delivering the completed project.", icon: KeyRound },
 ];
 
-/**
- * ⚠ PLACEHOLDER TESTIMONIALS — illustrative only.
- * Replace with genuine client feedback (with the client's permission) before launch.
- */
-export const testimonials = [
-  {
-    quote:
-      "The team was organised from day one. We always knew what was happening on site, and the finished quality of our home exceeded what we expected.",
-    name: "Client Name",
-    role: "Homeowner",
-    project: "Private Residence",
-    rating: 5,
-  },
-  {
-    quote:
-      "Clear timelines, honest communication and a site that was always well managed. They handled our commercial build with real professionalism.",
-    name: "Client Name",
-    role: "Director",
-    project: "Commercial Building",
-    rating: 5,
-  },
-  {
-    quote:
-      "Our renovation was completed with minimal disruption. The attention to detail in the finishing work is something we notice every day.",
-    name: "Client Name",
-    role: "Property Owner",
-    project: "Renovation",
-    rating: 5,
-  },
-] as const;

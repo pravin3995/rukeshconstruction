@@ -13,7 +13,7 @@ const footerNav = [
   { label: "Contact", href: "/contact" },
 ];
 
-const footerServices = ["residential-construction", "commercial-construction", "industrial-construction", "renovation-remodeling"]
+const footerServices = ["residential-construction", "commercial-construction", "renovation-remodeling", "project-management"]
   .map((slug) => services.find((s) => s.slug === slug))
   .filter((s) => s !== undefined);
 
@@ -31,7 +31,7 @@ export function Footer() {
         <div className="sm:col-span-2 lg:col-span-4">
           <Logo />
           <p className="mt-7 max-w-sm text-sm leading-relaxed text-mist">
-            Reliable, high-quality residential, commercial and industrial construction — delivered with precision,
+            Reliable, high-quality residential and commercial construction — delivered with precision,
             transparency and long-term value.
           </p>
           <SocialIcons className="mt-8" />

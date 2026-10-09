@@ -13,7 +13,7 @@ export const site = {
   shortName: "Rukesh",
   tagline: "Building the Future",
   description:
-    "Rukesh Construction delivers reliable, high-quality residential, commercial and industrial construction solutions.",
+    "Rukesh Construction delivers reliable, high-quality residential and commercial construction solutions.",
 
   // REPLACE: the production domain (used for canonical URLs, sitemap, Open Graph).
   url: "https://www.rukeshconstruction.com",
@@ -71,7 +71,6 @@ export const QUOTE_HREF = "/contact#inquiry";
 export const projectTypes = [
   "Residential Construction",
   "Commercial Construction",
-  "Industrial Construction",
   "Renovation & Remodeling",
   "Project Management",
   "Structural & Civil Works",

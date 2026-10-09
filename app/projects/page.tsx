@@ -6,7 +6,7 @@ import { CTA } from "@/components/CTA";
 export const metadata: Metadata = {
   title: "Projects",
   description:
-    "Explore residential, commercial and industrial construction projects by Rukesh Construction.",
+    "Explore residential and commercial construction projects by Rukesh Construction.",
   alternates: { canonical: "/projects" },
 };
 
@@ -20,7 +20,7 @@ export default function ProjectsPage() {
             Projects that <span className="text-gold">speak</span> for themselves
           </>
         }
-        intro="A selection of residential, commercial and industrial work — each delivered with the same commitment to quality."
+        intro="A selection of residential and commercial work — each delivered with the same commitment to quality."
         image="/images/site/page-projects.jpg"
         imageAlt="City skyline with high-rise buildings at dusk"
         crumbs={[{ label: "Home", href: "/" }, { label: "Projects" }]}
