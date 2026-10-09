@@ -3,7 +3,7 @@ import { projects } from "@/data/projects";
 import { site } from "@/data/site";
 
 // Update when content changes meaningfully.
-const LAST_UPDATED = "2026-10-07";
+const LAST_UPDATED = "2026-10-09";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const pages = [

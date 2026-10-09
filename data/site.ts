@@ -16,7 +16,7 @@ export const site = {
     "Rukesh Construction delivers reliable, high-quality residential and commercial construction solutions.",
 
   // REPLACE: the production domain (used for canonical URLs, sitemap, Open Graph).
-  url: "https://www.rukeshconstruction.com",
+  url: "https://rukeshconstruction.com",
 
   contact: {
     phone: "+91 88883 36576",
