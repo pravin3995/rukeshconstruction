@@ -9,6 +9,8 @@ import { cn, EASE } from "@/lib/utils";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
+const FALLBACK_ERROR = "Something went wrong. Please try again, or contact us directly by phone or email.";
+
 const fieldBase =
   "peer w-full border bg-white px-4 py-3.5 text-[0.95rem] text-ink outline-none transition-colors duration-200 placeholder:text-slate/60 focus:border-ink focus-visible:outline-none";
 
@@ -103,7 +105,7 @@ export function ContactForm() {
       const data = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string; errors?: ContactErrors };
       if (!res.ok || !data.ok) {
         if (data.errors) setErrors(data.errors);
-        throw new Error(data.error || "Something went wrong.");
+        throw new Error(data.error || FALLBACK_ERROR);
       }
       setStatus("success");
       setValues(emptyContact);
@@ -111,7 +113,8 @@ export function ContactForm() {
       setErrors({});
     } catch (err) {
       setStatus("error");
-      setServerMessage(err instanceof Error ? err.message : "Something went wrong.");
+      // Network failures throw a TypeError ("Failed to fetch") — show the friendly fallback instead.
+      setServerMessage(err instanceof Error && !(err instanceof TypeError) ? err.message : FALLBACK_ERROR);
     }
   }
 
@@ -209,7 +212,7 @@ export function ContactForm() {
           >
             <CircleAlert aria-hidden="true" className="mt-0.5 size-4 shrink-0" />
             <span>
-              {serverMessage} Please try again, or contact us directly by phone or email.
+              {serverMessage}
             </span>
           </motion.div>
         )}
