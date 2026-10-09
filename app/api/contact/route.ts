@@ -13,6 +13,11 @@ import { emptyContact, validateContact, type ContactInput } from "@/lib/contact"
  *                        Defaults to Resend's test sender, which can only deliver
  *                        to the email address of your Resend account.
  */
+/** Reads an env var, ignoring surrounding whitespace and quotes pasted into the dashboard. */
+function env(name: string) {
+  return process.env[name]?.trim().replace(/^(["'])(.*)\1$/, "$2").trim() || undefined;
+}
+
 export async function POST(request: Request) {
   let body: Partial<ContactInput> & { hp_trap?: string };
   try {
@@ -34,8 +39,8 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: "Please correct the highlighted fields.", errors }, { status: 422 });
   }
 
-  const apiKey = process.env.RESEND_API_KEY;
-  const to = process.env.CONTACT_TO_EMAIL;
+  const apiKey = env("RESEND_API_KEY");
+  const to = env("CONTACT_TO_EMAIL");
   if (!apiKey || !to) {
     console.error("[contact] RESEND_API_KEY or CONTACT_TO_EMAIL is not set. Inquiry:", input);
     return NextResponse.json(
@@ -48,7 +53,7 @@ export async function POST(request: Request) {
     method: "POST",
     headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
     body: JSON.stringify({
-      from: process.env.CONTACT_FROM_EMAIL || "Rukesh Construction Website <onboarding@resend.dev>",
+      from: env("CONTACT_FROM_EMAIL") || "Rukesh Construction Website <onboarding@resend.dev>",
       to: to.split(",").map((s) => s.trim()),
       reply_to: input.email,
       subject: `New inquiry: ${input.projectType} — ${input.fullName}`,
@@ -65,16 +70,9 @@ export async function POST(request: Request) {
   });
 
   if (!res.ok) {
-    const detail = await res.text();
-    console.error("[contact] Resend error", res.status, detail, "Inquiry:", input);
+    console.error("[contact] Resend error", res.status, await res.text(), "Inquiry:", input);
     return NextResponse.json(
-      {
-        ok: false,
-        error: "We couldn't send your message right now. Please call or email us directly.",
-        // TEMP (debugging live delivery): Resend's reason with email addresses redacted.
-        debug: `${res.status} ${detail.replace(/[^\s"'<>()]+@[^\s"'<>()]+/g, "[email]")}`,
-        from: (process.env.CONTACT_FROM_EMAIL ?? "(not set)").replace(/[^\s"'<>()]+@/g, "[x]@"),
-      },
+      { ok: false, error: "We couldn't send your message right now. Please call or email us directly." },
       { status: 502 },
     );
   }
