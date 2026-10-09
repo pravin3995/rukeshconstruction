@@ -65,9 +65,16 @@ export async function POST(request: Request) {
   });
 
   if (!res.ok) {
-    console.error("[contact] Resend error", res.status, await res.text(), "Inquiry:", input);
+    const detail = await res.text();
+    console.error("[contact] Resend error", res.status, detail, "Inquiry:", input);
     return NextResponse.json(
-      { ok: false, error: "We couldn't send your message right now. Please call or email us directly." },
+      {
+        ok: false,
+        error: "We couldn't send your message right now. Please call or email us directly.",
+        // TEMP (debugging live delivery): Resend's reason with email addresses redacted.
+        debug: `${res.status} ${detail.replace(/[^\s"'<>()]+@[^\s"'<>()]+/g, "[email]")}`,
+        from: (process.env.CONTACT_FROM_EMAIL ?? "(not set)").replace(/[^\s"'<>()]+@/g, "[x]@"),
+      },
       { status: 502 },
     );
   }
