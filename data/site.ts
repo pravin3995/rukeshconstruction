@@ -21,6 +21,9 @@ export const site = {
   contact: {
     phone: "+91 88883 36576",
     phoneHref: "tel:+918888336576",
+    // WhatsApp number in international format, digits only (country code + number).
+    whatsapp: "918888336576",
+    whatsappMessage: "Hello Rukesh Construction, I'd like to enquire about a construction project.",
     // REPLACE: real email address.
     email: "info@rukeshconstruction.com",
     // REPLACE: real office address.
@@ -89,4 +92,10 @@ export const budgetRanges = [
 export function formatAddress(separator = ", ") {
   const a = site.contact.address;
   return [a.line1, a.line2, `${a.city}, ${a.region} ${a.postalCode}`, a.country].join(separator);
+}
+
+/** wa.me chat link that opens WhatsApp with a pre-filled greeting. */
+export function whatsappHref() {
+  const { whatsapp, whatsappMessage } = site.contact;
+  return `https://wa.me/${whatsapp}?text=${encodeURIComponent(whatsappMessage)}`;
 }

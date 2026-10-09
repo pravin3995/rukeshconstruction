@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Mail, MapPin, Phone } from "lucide-react";
-import { formatAddress, site } from "@/data/site";
+import { formatAddress, site, whatsappHref } from "@/data/site";
+import { WhatsAppIcon } from "./ui/WhatsAppIcon";
 import { services } from "@/data/services";
 import { Logo } from "./Logo";
 import { SocialIcons } from "./ui/SocialIcons";
@@ -70,6 +71,12 @@ export function Footer() {
               <a href={site.contact.phoneHref} className={`${linkClass} flex items-center gap-3`}>
                 <Phone aria-hidden="true" className="size-4 shrink-0 text-gold" />
                 {site.contact.phone}
+              </a>
+            </li>
+            <li>
+              <a href={whatsappHref()} target="_blank" rel="noopener noreferrer" className={`${linkClass} flex items-center gap-3`}>
+                <WhatsAppIcon className="size-4 shrink-0 text-gold" />
+                WhatsApp us
               </a>
             </li>
             <li>

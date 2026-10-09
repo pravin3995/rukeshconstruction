@@ -13,7 +13,9 @@ function Counter({ value, suffix }: { value: number; suffix: string }) {
   const [display, setDisplay] = useState(0);
 
   useEffect(() => {
-    if (!inView || reduce) return;
+    // Set after mount (not during render) so the first client render matches the server's "0".
+    if (reduce) return setDisplay(value);
+    if (!inView) return;
     const controls = animate(0, value, {
       duration: 2,
       ease: [0.22, 1, 0.36, 1],
@@ -24,7 +26,7 @@ function Counter({ value, suffix }: { value: number; suffix: string }) {
 
   return (
     <span ref={ref} className="tabular-nums">
-      {reduce ? value : display}
+      {display}
       <span className="text-gold">{suffix}</span>
     </span>
   );
